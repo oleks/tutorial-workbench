@@ -31,7 +31,7 @@ to incarnate their spirit for (at least) a couple years to come.
 ## Feature Envy
 
 * Elegant (co-)authoring of tutorials by teachers and TAs.
-* Feedback from students on tutorial, exercise, and hints quality.
+* Feedback from students on tutorial, exercise, and feedback quality.
 * Tutorial series.
 * Competing tutorials.
 * Tutorial search and discovery.
