@@ -3,12 +3,12 @@
 ## Hello, `make`
 
 It is about as easy to get started with `make` as it is to [get started with
-C](../getting-started-with-c/Tutorial).  (Hopefully, it takes a bit less
+C](./getting-started-with-c/Tutorial).  (Hopefully, it takes a bit less
 forbearance to become proficient in `make`, than it takes to become proficient
 in C).
 
 To get started, [create an empty directory for the program and navigate to
-it](../the-unix-programming-environment/Tutorial).
+it](./the-unix-programming-environment/Tutorial).
 
 Consider a simple program which fits in a file we'll call `main.c`:
 
@@ -23,7 +23,7 @@ With no further work, you can use `make` to compile this program:
     cc     main.c   -o main
 
 As indicated, `make` will do the work we [previously were doing
-manually](../getting-started-with-c/Tutorial), and compile the C-file into an
+manually](./getting-started-with-c/Tutorial), and compile the C-file into an
 executable file called `main`:
 
     $ ls -lh main*
