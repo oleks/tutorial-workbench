@@ -1,0 +1,19 @@
+"The IEEE standard [..] gives an algorithm for addition, subtraction,
+multiplication, division, and square root and requires that implementations
+produce the same result as that algorithm" -- reproducibility baseline for
+results with floating point; the implementations will not produce the same
+EXPECTED (decimal) results on different data (see below).
+
+"Although [0.1] has a finite decimal representation, in binary it has an
+infinite repeating representation." -- perhaps a principle source of confusion
+with floating point?
+
+"Thus, when [base]=2, the number 0.1 lies strictly between two floating point
+numbers and is exactly representable by neither of them."
+
+"A less common situtation is that a real number is out of range" -- what is the
+data which we consider "common"?
+
+"When [base]=2 and [precision]=3, [min_exponent]=-1, and [max_exponent]=2,
+there are 16 normalized floating-point numbers" -- would be nice with a web
+interface where you can turn dials -- idea for an exercise set for ARK?
