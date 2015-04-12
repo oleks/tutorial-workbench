@@ -10,10 +10,11 @@ language close in spirit to a designated group of students.
 
 ## Intended Authors
 
-TAs are perhaps the ideal tutorial authors, as they typically are close in
-spirit to the students. TAs traditionally, have served to bridge the gap
-between formal course content and the students. Online tutorials are intended
-to incarnate their spirit for (at least) a couple years to come.
+Recent and current TAs are perhaps the ideal tutorial authors, as they
+typically are close in spirit to the students. TAs traditionally, have served
+to bridge the gap between formal course content and the students. Online
+tutorials are intended to incarnate and disseminate this spirit for (at least)
+a couple years to come.
 
 ## Preliminary Guideline
 
