@@ -29,6 +29,10 @@ a couple years to come.
 * Take assignments, solutions, and feedback from previous years as (necessarily
   quite representative) data for inspiration for testing and feedback.
 
+## Preliminary Timeline
+
+* 2-4 tutorials ready in time for the APL lunch on Friday, May 29.
+
 ## Feature Envy
 
 * Elegant (co-)authoring of tutorials by teachers and TAs.
