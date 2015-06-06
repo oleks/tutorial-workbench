@@ -10,7 +10,7 @@ in C).
 To get started, [create an empty directory for the program and navigate to
 it](../the-unix-programming-environment/Tutorial.md).
 
-Consider a simple program which fits in a file we'll call `main.c`:
+Consider a simple program which fits on a file we'll call `main.c`:
 
     int main()
     {
