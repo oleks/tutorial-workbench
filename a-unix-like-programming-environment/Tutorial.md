@@ -35,7 +35,9 @@ This tutorial is by no means comprehensive, and is not intended as a reference
 beyond the philosophical considerations. As part of the tutorial, we will try
 to guide you on where to find further details.
 
-## A bit of history
+## A Bit of History
+
+<center><iframe width="420" height="315" src="https://www.youtube.com/embed/XvDZLjaCJuw" frameborder="0" allowfullscreen></iframe></center>
 
 Later, so-called Integrated Development Environments (IDEs) emerged, the most
 popular today being perhaps Eclipse, XCode, and Visual Studio (no marketing
@@ -43,8 +45,8 @@ intended).
 
 ## A Command-Line Shell
 
-The crux of a Unix-like programming environment is a command-line interface
-with the operating system.
+The crux of a Unix-like programming environment is a Unix-like command-line
+interface with the operating system.
 
 > DEFINITION: A "shell" is a user interface for accessing the services offered
 > by an operating system.
@@ -54,5 +56,16 @@ with the operating system.
 ### Mac OS
 
 ### Windows
+
+### Other
+
+If you're using something other than Linux, Mac OS, and Windows on your
+personal computer, you should already know how to fire up a terminal.
+
+## Working with Directories and Files
+
+## Text-editors
+
+## Unix-like Text Processing Utilities
 
 ## Automating Your Workflows With Shell Scripts
