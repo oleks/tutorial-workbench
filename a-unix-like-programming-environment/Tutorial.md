@@ -15,11 +15,11 @@ Hall, 1984.
 The purpose of this tutorial is to introduce you to a philosophy of using the
 computer, perhaps different from what you already are acquainted with.
 
-This philosophy stands on the shoulders of some of the pioneers of modern
-computer operating systems and programming environments.
+This philosophy stands on the shoulders of many pioneers of modern operating
+systems and programming environments.
 
 The reason that this way of using a computer is often not in wide-spread
-adoption is sometimes due to:
+adoption is perhaps due to:
 
 1. a general public disinterest in computer programming,
 2. a fondness of the general public of [graphical user
@@ -32,10 +32,10 @@ serves perhaps as a modern introduction to the book, should you choose to read
 it.
 
 This tutorial is by no means comprehensive, and is not intended as a reference
-beyond the philosophical considerations. As part of the tutorial, we will try
-to guide you on where to find further details.
+beyond its philosophical considerations. As part of the tutorial, we will try
+to point you to materials for further study.
 
-## A Bit of History
+## The Bits of History
 
 <center><iframe width="420" height="315" src="https://www.youtube.com/embed/XvDZLjaCJuw" frameborder="0" allowfullscreen></iframe></center>
 
@@ -43,7 +43,7 @@ Later, so-called Integrated Development Environments (IDEs) emerged, the most
 popular today being perhaps Eclipse, XCode, and Visual Studio (no marketing
 intended).
 
-## A Command-Line Shell
+## Hello, Terminal
 
 The crux of a Unix-like programming environment is a Unix-like command-line
 interface with the operating system.
