@@ -1,0 +1,290 @@
+= Your Canonical Build System — `make`
+Oleksandr Shturmov <oleks@oleks.info>
+v1.0, July 31, 2015
+:toc:
+
+This tutorial serves as a short introduction to the canonical Unix-like build
+system make. This tutorial assumes that you've already set up a Unix-like
+programming environment, know how to work with directories and files, as well
+as how to edit files.
+
+== Hello, `make`
+
+It is about as easy to get started with `make` as it is to [get started with
+C](../getting-started-with-c/Tutorial.md).  (Hopefully, it takes a bit less
+forbearance to become proficient in `make`, than it takes to become proficient
+in C).
+
+To get started, [create an empty directory for the program and navigate to
+it](../the-unix-programming-environment/Tutorial.md).
+
+Consider a simple program which fits on a file, which we can call `main.c`:
+
+ int main()
+ {
+   return 42;
+ }
+
+With no further work, we can already use `make` to compile our program:
+
+ $ make main
+ cc     main.c   -o main
+
+[NOTE]
+====
+`make` as invoked above will look for a file called `<arg>.c` if invoked with
+the command-line argument `<arg>`. If the `<arg>.c` is present, it will use the
+standard C compiler to compile the file into an executable called `<arg>`.
+====
+
+So `make` can already [save us a couple
+keystrokes](../getting-started-with-c/Tutorial.md), and compile our `main.c`
+into an executable file called `main` for us.
+
+[NOTE]
+====
+Your directory structure should now look like this:
+
+ $ ls -lh
+ -rwxr-xr-x [..] main
+ -rw-r--r-- [..] main.c
+
+====
+
+We can try to run our program as before:
+
+  $ ./main
+  $ echo $?
+  42
+
+What's more, `make` will already help us avoid unnecessary work. Try to call
+`make main` again (without changing `main.c`):
+
+  $ make main
+  make: 'main' is up to date.
+
+In our basic use, `make` takes `main.c` as a **prerequisite** for the
+**target** `main`. That is, `make` sets up a **dependency graph** which can be
+illustrated like this:
+
+  +------+
+  | main |
+  +------+
+     |
+     | (depends on)
+     v
+ +--------+
+ | main.c |
+ +--------+
+
+To implement this dependency graph, `make` will compare the **modification
+time** of `main.c` to that of `main`. If the prerequisite was modified after
+the target, `make` will run a **recipe** in attempt to bring the target "up to
+date" with the prerequisite.  The default recipe in this case, is to compile
+the C-file.
+
+Here's a spurious sequence of commands you might try to make sure that
+everything works as we proclaim:
+
+----
+$ echo "int main() { return 43; }" > root.c
+$ make root
+cc     root.c   -o root
+$ ./root 
+$ echo $?
+43
+$ echo "int main() { return 42; }" > main.c
+$ make main
+cc     main.c   -o main
+$ make main
+make: 'main' is up to date.
+$ make main
+make: 'main' is up to date.
+$ make root
+make: 'root' is up to date
+$ ./main 
+$ echo $?
+42
+$ ls -lh
+-rwxr-xr-x [..] main
+-rw-r--r-- [..] main.c
+-rwxr-xr-x [..] root
+-rw-r--r-- [..] root.c
+$ rm root
+$ rm root.c
+----
+
+== Hello, `Makefile`
+
+The behaviour of calling `make` in a particular directory can be customized to
+your heart's content by creating a special file called `Makefile`. As a
+(de)motivating example, here is a `Makefile` that (in our case) will achieve
+the exact same effect as having no `Makefile` at all:
+
+.Makefile
+----
+main: main.c
+ 	cc main.c -o main
+----
+
+[NOTE]
+====
+Your directory structure should now look like this:
+
+.Terminal
+----
+$ ls -lh
+-rwxr-xr-x [..] main
+-rw-r--r-- [..] main.c
+-rw-r--r-- [..] Makefile
+----
+====
+
+A `Makefile` specifies a number of **rules**. A rule has a number of
+**targets** and **prerequisites**, as well as a **recipe** for brining the
+targets "up to date" with the prerequisites. A recipe is a sequence of
+**commands** which will be called in sequence, each in their own **shell**.
+
+The format of a `Makefile` rule goes as follows:
+
+----
+TARGETS `:` PREREQUISITES LINE-BREAK
+TAB COMMAND LINE-BREAK
+TAB COMMAND LINE-BREAK
+TAB COMMAND LINE-BREAK
+...
+----
+
+OBS! It is important that every line of the recipe begins with a **tab
+character**.  To quote the
+http://www.gnu.org/software/make/manual/make.html#Introduction[GNU `make`
+manual]: "This is an obscurity that catches the unwary."
+
+== Phony Targets
+
+[quote, Your fellow student]
+Useless `main`, pointless `Makefile`, now "Phony Targets"?
+
+To make our `Makefile` a bit more pointful, let's create a classical phony
+target — `clean`. `clean` will be "phony" in the sense that its recipe will not
+produce a file called `clean`. Instead, `clean` will clean up the mess our
+invocations of `make` have made above — in our case, just delete the `main`
+file.
+
+A simple approach would've been to just add the `clean` target to our
+`Makefile`:
+
+.Makefile
+----
+main: main.c
+	cc main.c -o main
+
+clean:
+	rm main
+----
+
+Unfortunately, if we were ever to place a file called `clean` into our
+directory, we would render the `clean` target void. For instance, consider the
+following session at the terminal:
+
+ $ echo 42 > clean
+ $ make clean
+ make: 'clean' is up to date.
+
+To avoid this problem (and make sure the recipe for `clean` is always run when
+we ask it to), we have to mark the `clean` target as `.PHONY`:
+
+.Makefile
+----
+.PHONY: clean
+
+main: main.c
+	cc main.c -o main
+
+clean:
+	rm main
+----
+
+Continuing the terminal session from before..
+
+ $ make clean
+ rm main
+
+[NOTE]
+====
+If you followed our ill advice and created a file called `clean`, remove it so
+that we again have a directory structure like this:
+
+.Terminal
+----
+$ ls -lh
+-rwxr-xr-x [..] main
+-rw-r--r-- [..] main.c
+-rw-r--r-- [..] Makefile
+----
+====
+
+However, if you follow our suggestion of spuriously verifying what we say, and
+try to `make clean` again, you'll see `make` fail:
+
+.Terminal
+----
+$ make clean
+rm main
+rm: cannot remove ‘main’: No such file or directory
+Makefile:7: recipe for target 'clean' failed
+make: *** [clean] Error 1
+----
+
+The recipe is failing because we've already removed the file called `main`.
+`make` tries to be helpful and tell us that it failed on line 7 of the
+`Makefile`, in the midst of the recipe for the `clean` target. The `make` style
+of error reporting might seem a bit cryptic at first.
+
+We can add a `-f` command-line argument to `rm` in our recipe to make `rm`
+ignore non-existent files.
+
+.Makefile
+----
+.PHONY: clean
+
+main: main.c
+	cc main.c -o main
+
+clean:
+	rm -f main
+----
+
+OBS! `-f` should in general be used with caution — you might carelessly remove
+important files.
+
+Now we can go on a command spree again!
+
+.Terminal
+----
+make main
+$ make main
+cc main.c -o main
+$ make main
+make: 'main' is up to date.
+$ make main
+make: 'main' is up to date.
+$ make clean
+rm -f main
+$ make clean
+rm -f main
+$ ls -lh
+-rw-r--r-- [..] main.c
+-rw-r--r-- [..] Makefile
+----
+
+== Default Target
+
+== Multiple Targets
+
+== Variables
+
+== Further Study
+
+. GNU `make`. http://www.gnu.org/software/make/manual/make.html. Free Software
+Foundation, Inc, 2014.

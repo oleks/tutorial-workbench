@@ -1,2 +1,2 @@
-%.md: %.html
-	pandoc $< > $@
+Tutorial.html: Tutorial.asciidoc
+	asciidoctor Tutorial.asciidoc
