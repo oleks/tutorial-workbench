@@ -189,7 +189,7 @@ $ rm root.c
 The behaviour of calling `make` in a particular directory can be customized by
 creating a special file called `Makefile` in that directory. As a
 (de)motivating example, here is a `Makefile` that (in our case) will achieve
-the exact same effect as having no `Makefile` at all (except use the proper C
+the exact same effect as having no `Makefile` at all (except use the expected C
 compiler!):
 
 .Makefile
@@ -277,7 +277,7 @@ A simple approach would've been to just add the `clean` target to our
 #BadMakefile
 
 main: main.c
-	cc main.c -o main
+	gcc main.c -o main
 
 clean:
 	rm main
@@ -311,7 +311,7 @@ we ask it to), we have to mark the `clean` target as `.PHONY`:
 .PHONY: clean
 
 main: main.c
-	cc main.c -o main
+	gcc main.c -o main
 
 clean:
 	rm main
@@ -366,7 +366,7 @@ argument to `rm` in our recipe to make `rm` ignore nonexistent files:
 .PHONY: clean
 
 main: main.c
-	cc main.c -o main
+	gcc main.c -o main
 
 clean:
 	rm -f main
@@ -411,7 +411,7 @@ One naïve approach could go as follows:
 .PHONY: test clean
 
 main: main.c
-	cc main.c -o main
+	gcc main.c -o main
 
 test: main
 	./main
@@ -440,7 +440,7 @@ A better `Makefile` could go as follows:
 .PHONY: test clean
 
 main: main.c
-	cc main.c -o main
+	gcc main.c -o main
 
 test: main
 	./main || echo $$?
@@ -555,7 +555,7 @@ We can embrace both by adding a phony target `all` at the top of our
 all: test
 
 main: main.c
-	cc main.c -o main
+	gcc main.c -o main
 
 test: main
 	./main || echo $$?
