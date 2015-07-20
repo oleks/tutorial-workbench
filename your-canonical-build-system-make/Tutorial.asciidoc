@@ -6,11 +6,10 @@ v1.0, July 31, 2015
 Welcome to our short, practical introduction to the program `make` — your
 canonical build system.
 
-This tutorial is not a comprehensive introduction to `make`. Only to the bits
-of `make` that you will need to pass the course
-http://www.webcitation.org/6a2I3GpLv[Machine Architecture (ARK), 2015] at
-http://www.diku.dk[DIKU], and beyond. Most crucially, `make` goes far beyond
-programming in C, we don't.
+This tutorial is not a comprehensive introduction to `make`. We only cover what
+you might need for the course http://www.webcitation.org/6a2I3GpLv[Machine
+Architecture (ARK)] at http://www.diku.dk[DIKU], and beyond. Most crucially,
+`make` goes far beyond programming in C, we don't.
 
 This tutorial assumes that you've already set up
 link:a-unix-like-programming-environment.html[a Unix-like programming
@@ -55,6 +54,22 @@ With no further work, we can already use `make` to compile this program:
 $ make main
 cc     main.c   -o main
 ----
+
+[NOTE]
+====
+
+`cc` is a relic of the 70's. Typically, this is just a symbolic link to your
+standard C compiler. Presumably, this is GCC. You can check what `cc` really is
+using the programs `which` and `file`:
+
+.Terminal
+----
+$ which cc
+/usr/bin/cc
+$ file /usr/bin/cc
+/usr/bin/cc: symbolic link to gcc
+----
+====
 
 If we instead called our file `root.c` we would have to compile it like this:
 
@@ -174,12 +189,13 @@ $ rm root.c
 The behaviour of calling `make` in a particular directory can be customized by
 creating a special file called `Makefile` in that directory. As a
 (de)motivating example, here is a `Makefile` that (in our case) will achieve
-the exact same effect as having no `Makefile` at all:
+the exact same effect as having no `Makefile` at all (except use the proper C
+compiler!):
 
 .Makefile
 ----
 main: main.c
- 	cc main.c -o main
+	gcc main.c -o main
 ----
 
 ////
@@ -237,7 +253,7 @@ $ make
 make: 'main' is up to date.
 $ rm main
 $ make
-cc main.c -o main
+gcc main.c -o main
 ----
 
 == Phony Targets
@@ -277,7 +293,7 @@ $ echo 42 > clean
 $ make clean
 make: 'clean' is up to date.
 $ make
-cc main.c -o main
+gcc main.c -o main
 $ make clean
 make: 'clean' is up to date.
 $ ls -lh
@@ -364,7 +380,7 @@ Now we can go on a command spree again!
 .Terminal
 ----
 $ make
-cc main.c -o main
+gcc main.c -o main
 $ make
 make: 'main' is up to date.
 $ make clean
@@ -477,7 +493,7 @@ and `make test`:
 $ make clean
 rm -f main
 $ make test
-cc main.c -o main
+gcc main.c -o main
 ./main || echo $?
 42
 ----
@@ -490,7 +506,7 @@ how `make` will handle a compilation error:
 $ make clean
 $ echo "int main() { return x; }" > main.c
 $ make test
-cc main.c -o main
+gcc main.c -o main
 main.c: In function ‘main’:
 main.c:1:21: error: ‘x’ undeclared (first use in this function)
  int main() { return x; }
@@ -515,7 +531,7 @@ make: 'main' is up to date.
 $ make clean
 rm -f main
 $ make
-cc main.c -o main
+gcc main.c -o main
 ----
 
 `make` resolves target ambiguity in a very simple way — the top target is the
@@ -555,7 +571,7 @@ Let's take the `Makefile` for a spin:
 $ make clean
 rm -f main
 $ make
-cc main.c -o main
+gcc main.c -o main
 ./main || echo $?
 42
 ----
